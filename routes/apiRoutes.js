@@ -3,6 +3,7 @@ const path = require('path');
 const router = require('express').Router();
 const dbFilePath = path.join(__dirname, '../db/db.json');
 
+// GET route to get notes from db file
 router.get('/notes', (req, res) => {
     fs.readFile(dbFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -14,8 +15,10 @@ router.get('/notes', (req, res) => {
     });
 });
 
+// adds new notes to db file
 router.post('/notes', (req, res) => {
     const newNote = req.body;
+    // uft8 tells Node.js that this is encoded text, not raw binary data
     fs.readFile(dbFilePath, 'utf8', (err, data) => {
         if (err) {
             console.error(err);
@@ -34,6 +37,7 @@ router.post('/notes', (req, res) => {
     });
 });
 
+// deletes note from db
 router.delete('/notes/:id', (req, res) => {
     const noteId = req.params.id;
     fs.readFile(dbFilePath, 'utf8', (err, data) => {
@@ -42,22 +46,21 @@ router.delete('/notes/:id', (req, res) => {
             return res.status(500).json({ error: 'Internal server error' });
         }
         let notes = JSON.parse(data);
-        // Filter out the note with the given ID
+        // Filter out the note using the id
         notes = notes.filter(note => note.id !== noteId);
         fs.writeFile(dbFilePath, JSON.stringify(notes), (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal server error' });
             }
-            res.sendStatus(204); // Send No Content status to indicate successful deletion
+            res.sendStatus(204); 
         });
     });
 });
 
 function generateUniqueId() {
-    const timestamp = Date.now().toString(36); // Convert current timestamp to base36 string
-    const randomStr = Math.random().toString(36).substr(2, 5); // Generate random string (remove '0.' prefix)
-    return timestamp + randomStr; // Combine timestamp and random string
+    // turns the timestamp into a string to create a unique id
+    return Date.now().toString(); 
 }
 
 module.exports = router;
