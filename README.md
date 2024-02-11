@@ -18,7 +18,7 @@ Asked questions on https://chat.openai.com/ to help troubleshoot situations wher
 NOT DEPLOYED IN HEROKU BECAUSE WE SKIPPED LEARNING ABOUT IT THIS WEEK AND ARE LEARNING ABOUT SOMETHING ELSE NEXT WEEK
 
 Walkthrough video:
-
+https://drive.google.com/file/d/1FlL5qrQ2RCwLtt-waSUrnoz1nIGwlDpo/view
 
 Screenshot:
-
+![alt text](/assets/images/note-taker.png)
